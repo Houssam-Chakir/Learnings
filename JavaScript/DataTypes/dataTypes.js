@@ -26,7 +26,8 @@ let myAge = 24;
 //----------------------------------------------------------------------------------------------
 
 //- Data Types Conversion AND Coercion
-//: TYPE CONVERSION: done manually by us to converte from type to type
+//: TYPE CONVERSION:
+//* done manually by us to converte from type to type
 
 const birthYear = '1999';
 console.log(birthYear + 18); //output: 199918
@@ -38,4 +39,8 @@ console.log(2023 - birthYear); //output: 24
 console.log(number('Houssam')); //output: NaN (Not a Number)
 //? you can also convert to a string or a bolean
 
-//: TYPE COERCION: done automatically by JavaScript
+//: TYPE COERCION: 
+//* done automatically by JavaScript
+
+console.log("I am " + 24 + " years old!"); // produces a whole string
+console.log('23' - 10 - '3'); //output: 10 as number
