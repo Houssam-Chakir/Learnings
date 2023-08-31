@@ -1,4 +1,4 @@
-//* if / else statements
+//: if / else statements
 const age = 21;
 
 if(age >= 18) {
