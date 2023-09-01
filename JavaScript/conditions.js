@@ -6,3 +6,6 @@ if(age >= 18) {
 } else {
     console.log(`Not old enough until after ${18 - age} years.`);
 };
+
+//- one line if statement
+if(age === 21) console.log("cool");
