@@ -38,3 +38,17 @@ switch (day) {
     default:
         console.log("bruh only earth days");
 }
+
+//: CONDITIONAL (TERNARY) OPERATOR ////////////////////////////
+
+age = 24;
+age >= 18 ? console.log(`I can drive a car`) : console.log(`I will settle with a bicycle :,)`);
+
+//? OR store the value in a variable
+const isOldEnough = age >= 18 ? "Can drive" : "Get a bicycle";
+console.log(isOldEnough);
+
+//- Ternary operator is considered an expression
+//! so it can be used in template literals
+
+console.log(`I can ${age >= 18 ? "can drive" : "get a bicycle"}`);
