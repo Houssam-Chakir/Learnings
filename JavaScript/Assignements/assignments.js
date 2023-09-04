@@ -6,6 +6,8 @@ console.log(country);
 console.log(continent);
 console.log(population);
 
+// 
+
 const isIland = false;
 let language;
 
@@ -13,6 +15,8 @@ console.log(typeof isIland);
 console.log(typeof country);
 console.log(typeof continent);
 console.log(typeof population);
+
+// 
 
 language = "arabic";
 
@@ -27,6 +31,8 @@ if(population > average) {
 } else {
     console.log(`${country}'s population is ${ average - population} below average.`);
 }
+
+// 
 
 let numNeighbours = Number(prompt("How many neighbour countries does your country have?"));
 
@@ -43,6 +49,8 @@ if(language === "English" && population < 50000000 && isIland === false) {
 } else {
     console.log(`${country} is not the right country for you`);
 }
+
+// 
 
 switch (language) {
     case "chinese":
@@ -61,3 +69,11 @@ switch (language) {
     default:
         console.log(`Great language too :D`);
 }
+
+// 
+
+const isAboveAverage = population > 33000000 ? (`${country}'s population is above average`) : (`${country}'s population is below average`);
+console.log(isAboveAverage);
+
+//- A better approach to keep in mind for future code
+console.log(`${country}'s population is ${population > 33000000 ? ("above") : ("below")} average`);
