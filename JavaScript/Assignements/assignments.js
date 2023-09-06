@@ -77,3 +77,24 @@ console.log(isAboveAverage);
 
 //- A better approach to keep in mind for future code
 console.log(`${country}'s population is ${population > 33000000 ? ("above") : ("below")} average`);
+
+// FUNCTIONS
+// FUNCTION DECLARATION
+function describeCountry(country, population, capitalCity) {
+    return `${country} has ${population} million people and its capital is ${capitalCity}`;
+}
+
+console.log(describeCountry("Morocco", 36, "Rabat"));
+// FUNCTION EXPRESSION
+const describeCountry2 = function (country, population, capitalCity) {
+    return `${country} has ${population} million people and its capital is ${capitalCity}`;
+}
+
+console.log(describeCountry2("Morocco", 36, "Rabat"));
+// 
+const percentageOfTheWorld = function (population) {
+    return population / 7900 * 100
+}
+
+console.log(percentageOfTheWorld(1441));
+// ARROW FUNCTIONS

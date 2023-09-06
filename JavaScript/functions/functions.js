@@ -23,3 +23,17 @@ const ageCalc = function (birthYear) {
 //- Calling the function expression
 const myAge = ageCalc(1999);
 console.log(myAge);
+
+//: ARROW FUNCTIONS
+
+//* One line
+const myAgeArrow = birthYear => 2023 - birthYear;
+console.log(myAgeArrow);
+
+//* Multi lines, params
+const myAgeArrow2 = (birthYear, year) => {
+    console.log("Multiliner");
+    age = year - birthYear;
+    return age;
+}
+//! arrow functions dont have the this key word un like functions declarations
