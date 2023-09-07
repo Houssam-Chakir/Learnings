@@ -98,3 +98,5 @@ const percentageOfTheWorld = function (population) {
 
 console.log(percentageOfTheWorld(1441));
 // ARROW FUNCTIONS
+
+const percentageOfTheWorldArrow = (population) => population / 7900 * 100;
