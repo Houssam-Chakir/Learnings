@@ -105,3 +105,28 @@ const percentageOfTheWorldArrow = (population) => population / 7900 * 100;
 const describePopulation = (country, population) => {
     console.log(`${country} has ${population} people, which is about ${percentageOfTheWorldArrow(population)}% of the world`);
 }
+
+// Basic Aray Operaions (Methods)
+const neighbours = ["Algeria", "Mouritania", "Spain"];
+
+neighbours.push("Utopia");
+neighbours.pop();
+if(!neighbours.includes("Germany")) (console.log("Probably not a central European country :D"))
+neighbours[2] = "Pain";
+
+console.log(neighbours);
+
+// Introduction to Obejects
+const myCountry = {
+    country: "Morocoo",
+    capital: "Rabat",
+    language: "Arabic",
+    population: 37,
+    neighbours: ["Algeria", "Mouritania", "Spain"]
+}
+
+// Dot vs Bracket Notation
+console.log(`${myCountry.country} has ${myCountry.population} million arabic speaking people, ${myCountry.neighbours.length} countries and a capital called ${myCountry.capital}.`);
+
+myCountry.population += 2;
+myCountry["population"] -= 2;
