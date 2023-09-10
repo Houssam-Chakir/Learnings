@@ -29,3 +29,74 @@ houssam[goalKey]; //! houssam.goalkey wont work in this case, give undifined
 // adding
 houssam.bike = "NHT200";
 houssam["bikeBrand"] = "SYM";
+
+//: OBJECT METHODS ///////////////////////
+//- adding functions as key value paire:
+const info = {
+    birthYear: 1999,
+    age: function(birthYear) {
+        return 2023 - birthYear;
+    }
+}
+
+console.log(info.age(1999)); //24
+
+//* now using brackets
+console.log(info['age'](1999)); //- read the syntax carefully
+
+//: USING "this" //////////////////////////
+
+const info1 = {
+    birthYear: 1999,
+    age: function() {
+        return 2023 - this.birthYear;
+    }
+}
+
+console.log(info.age()); //24
+
+//! A GOOD PRACTICE TO KEEP IN MIND /////////
+//- Use the function once to store the calculated value in a new property
+
+const info2 = {
+    birthYear: 1999,
+    calcAge: function() {
+        this.age = 2023 - this.birthYear;
+        return this.age;
+    }
+}
+
+console.log(info2.calcAge());
+// now u dont have to call the function again
+console.log(info2.age); // now u have age property with the calculated age
+
+//* CHALLENGE ///
+/* Write your code below. Good luck! 🙂 */
+
+const mark = {
+    fullName: "Mark Miller",
+    mass: 78,
+    height:1.69,
+    
+    calcBMI: function() {
+        this.BMI = this.mass / (this.height ** 2);
+        return this.BMI;
+    }
+}
+
+const john = {
+    fullName: "John Smith",
+    mass: 92,
+    height:1.95,
+    
+    calcBMI: function() {
+        this.BMI = this.mass / (this.height ** 2);
+        return this.BMI;
+    }
+}
+
+if(john.calcBMI() > mark.calcBMI()) {
+    console.log(`${john.fullName}'s BMI (${john.calcBMI()}) is higher than ${mark.fullName}'s (${mark.calcBMI()})!`);
+} else {
+    console.log(`${mark.fullName}'s BMI (${mark.calcBMI()}) is higher than ${john.fullName}'s (${john.calcBMI()})!`);
+}
