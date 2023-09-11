@@ -130,3 +130,28 @@ console.log(`${myCountry.country} has ${myCountry.population} million arabic spe
 
 myCountry.population += 2;
 myCountry["population"] -= 2;
+
+// Object Methods
+const myCountry2 = {
+    country: "Morocoo",
+    capital: "Rabat",
+    language: "Arabic",
+    population: 37,
+    neighbours: ["Algeria", "Mouritania", "Spain"],
+    describe: function() {
+        console.log(`${this.country} has ${this.population} million arabic speaking people, ${this.neighbours.length} countries and a capital called ${this.capital}.`);
+    },
+    isIsland: function() {
+        this.neighbours.length() > 0 ? true : false;
+    },
+    //! if you get undifined its because you are not returing anything
+    //? in this case i dont need to return when creating a new property since I can access the desired value from it
+    checkIsland: function() {
+        this.isIsland = this.neighbours.length > 0 ? false : true;
+    }
+}
+
+console.log(myCountry2.describe()); //Morocoo has 37 million arabic speaking people, 3 countries and a capital called Rabat.
+
+myCountry2.checkIsland();
+console.log(myCountry2.isIsland); //false
