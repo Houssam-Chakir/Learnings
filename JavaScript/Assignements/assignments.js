@@ -155,3 +155,15 @@ console.log(myCountry2.describe()); //Morocoo has 37 million arabic speaking peo
 
 myCountry2.checkIsland();
 console.log(myCountry2.isIsland); //false
+
+// Iteration: The for loop
+
+for (let i = 1; i <= 50; i++) {
+    console.log(`Voter number ${i} is currently voting`);
+}
+
+let count = 1
+while (count <= 50) {
+    console.log(`Voter number ${i} is currently voting`);
+    count++;  
+}
