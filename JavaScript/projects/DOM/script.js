@@ -1,7 +1,7 @@
 "use strict";
 
 // - VARIABLES //////////////////////////////////////
-let randomNum = Math.floor(Math.random() * 10) + 1;
+let randomNum = Math.floor(Math.random() * 20) + 1;
 console.log(randomNum);
 
 let score = Number(document.querySelector(".score").textContent);
@@ -27,8 +27,6 @@ const reset = () => {
   randomizer();
   resetScore();
   resetHighScore();
-  document.querySelector(".message").textContent = "Start guessing...";
-  console.log("again btn clicked!");
   console.log(randomNum);
 };
 
@@ -36,6 +34,7 @@ const reset = () => {
 // TODO event listner to try again
 // new randomNum / message to start guessing / score back to 20
 document.querySelector(".again").addEventListener("click", function () {
+  document.querySelector(".message").textContent = "Start guessing...";
   reset();
 });
 
@@ -43,8 +42,11 @@ document.querySelector(".again").addEventListener("click", function () {
 // stores guess in var / checks randomNum === guess
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
-  // checks in random Num === guess ----------------
-  if (randomNum === guess) {
+  if (!guess) {
+    //* checks if no number inputed
+    document.querySelector(".message").textContent = "😒 a number please";
+  } else if (randomNum === guess) {
+    //* checks in random Num === guess
     // success message
     document.querySelector(".message").textContent = "🎉 Correct guess!!!";
     //resets random num
@@ -56,14 +58,20 @@ document.querySelector(".check").addEventListener("click", function () {
     }
     resetScore();
   } else if (randomNum !== guess) {
-    // try again msg
-    document.querySelector(".message").textContent = "Try again :)";
-    // updates score to score--
+    //* now checking if high OR low
+    if (guess > randomNum) {
+      //HIGH
+      document.querySelector(".message").textContent = "A high guess ⬆️";
+    } else {
+      //LOW
+      document.querySelector(".message").textContent = "A low guess ⬇️";
+    }
+    // updates score by score--
     score--;
     document.querySelector(".score").textContent = score;
     //check score if 0
     if (document.querySelector(".score").textContent <= 0) {
-      // failed msg
+      document.querySelector(".message").textContent = "Lets try again :)";
       reset();
     }
   }
