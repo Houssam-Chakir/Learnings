@@ -10,10 +10,12 @@
 // - QUERY SELECTOR EXAMPLES //////////////////////////////
 // to select an element by class and extract its text content
 // add = to set desired text content
-document.querySelector(".message").textContent = "Hello World";
-
+//! only selects the first match
 // value of selected query
 document.querySelector(".input").value = 1337;
+
+document.querySelectorAll(".message").textContent = "Hello World";
+// ! to selecet all use: querySelectorAll
 
 // - EVENTS LISTENERS EXAMPLES ////////////////////////////
 
@@ -21,3 +23,12 @@ document.querySelector(".input").value = 1337;
 document.querySelector(".button").addEventListener("click", function () {
   console.log("button is clicked!");
 });
+
+//* Listening to a keypress
+// keypresses are global events so we need to listen to them on the whole document
+
+document.addEventListener("keyup",function(event) {
+  // the event argument will contain all information about the recorded event
+  // such as the pressed key
+  console.log(event);
+})
