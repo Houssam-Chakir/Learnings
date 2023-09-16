@@ -28,6 +28,17 @@ const reset = () => {
   resetScore();
   resetHighScore();
   console.log(randomNum);
+  defaultEffect();
+};
+
+const winnerEffect = (guess) => {
+  document.querySelector("body").style.backgroundColor = "#60b347";
+  document.querySelector(".number").textContent = guess;
+};
+
+const defaultEffect = () => {
+  document.querySelector("body").style.backgroundColor = "#222";
+  document.querySelector(".number").textContent = "?";
 };
 
 // - EVENT LISTENERS //////////////////////////////////////////////////
@@ -42,28 +53,30 @@ document.querySelector(".again").addEventListener("click", function () {
 // stores guess in var / checks randomNum === guess
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
+  // when guess is not a number //
   if (!guess) {
     //* checks if no number inputed
     document.querySelector(".message").textContent = "😒 a number please";
   } else if (randomNum === guess) {
-    //* checks in random Num === guess
+    // when guess is correct //
+    winnerEffect(guess);
     // success message
     document.querySelector(".message").textContent = "🎉 Correct guess!!!";
     //resets random num
     randomizer();
-    // checks high score ----
+    // when there is new high score
     if (score > highScore) {
       highScore = score;
       document.querySelector(".highscore").textContent = highScore; // updaes DOM: new Highscore
     }
     resetScore();
   } else if (randomNum !== guess) {
-    //* now checking if high OR low
+    // when guess is not correct //
     if (guess > randomNum) {
-      //HIGH
+      //when guess is HIGH
       document.querySelector(".message").textContent = "A high guess ⬆️";
     } else {
-      //LOW
+      //when guess is LOW
       document.querySelector(".message").textContent = "A low guess ⬇️";
     }
     // updates score by score--
