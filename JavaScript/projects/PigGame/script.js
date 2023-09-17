@@ -41,7 +41,10 @@ const switchPlayer = () => {
   }
 };
 
-const rollDice = () => {
+//- EVENT LISTENERS //////////////////////////
+
+//: DICE ROLLER -------------------------------
+rollBtn.addEventListener("click", function () {
   // Rolls the dice
   let randNum = Math.floor(Math.random() * 5) + 1;
   dice.src = `images/dice-${randNum}.png`;
@@ -61,31 +64,29 @@ const rollDice = () => {
       : (currentScore1.textContent = 0);
     switchPlayer();
   }
-};
+});
 
-const holdPoints = () => {
+//: HOLD CURRENT ----------------------------
+holdBtn.addEventListener("click", function () {
   // sends current poits to current player
   if (currentPlayer === player0) {
     // if player 0
     scoreValue0 = currentValue;
     score0.textContent = Number(score0.textContent) + scoreValue0;
     currentValue = 0;
-    currentScore0.textContent = 0
+    currentScore0.textContent = 0;
     switchPlayer();
   } else if (currentPlayer === player1) {
     // if player 1
     scoreValue1 = currentValue;
     score1.textContent = Number(score1.textContent) + scoreValue1;
     currentValue = 0;
-    currentScore1.textContent = 0
+    currentScore1.textContent = 0;
     switchPlayer();
   }
-};
+});
 
-//- EVENT LISTENERS //////////////////////////
-
-rollBtn.addEventListener("click", rollDice);
-holdBtn.addEventListener("click", holdPoints);
+//: NEW GAME -------------------------------
 newBtn.addEventListener("click", function () {
   currentValue = 0;
   scoreValue0 = 0;
