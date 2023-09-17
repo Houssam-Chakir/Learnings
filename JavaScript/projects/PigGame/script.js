@@ -6,7 +6,6 @@
 const players = document.querySelectorAll(".player");
 const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
-let currentPlayer = 0;
 // BTNS
 const newBtn = document.querySelector(".btn--new");
 const rollBtn = document.querySelector(".btn--roll");
@@ -17,14 +16,35 @@ const score1 = document.querySelector("#score--1");
 const currentScore0 = document.querySelector("#current--0");
 const currentScore1 = document.querySelector("#current--1");
 
-let currentValue = 0;
-let scoreTotal = [0, 0];
 // DICE
 const dice = document.querySelector(".dice");
-// STATUS
+//STARTERS
 let playing = true;
+let currentValue = 0;
+let scoreTotal = [0, 0];
+let currentPlayer = 0;
+init();
 
 //- FUNCTIONS ////////////////////////////////
+
+// Default stat of the game
+function init() {
+  playing = true;
+  currentValue = 0;
+  scoreTotal = [0, 0];
+  currentPlayer = 0;
+  score0.textContent = 0;
+  score1.textContent = 0;
+  currentScore0.textContent = 0;
+  currentScore1.textContent = 0;
+
+  dice.classList.add("hidden");
+  document
+    .querySelector(`.player--${currentPlayer}`)
+    .classList.remove("player--winner");
+  document.querySelector(`.player--0`).classList.add("player--active");
+  document.querySelector(`.player--1`).classList.remove("player--active");
+}
 
 const switchPlayer = () => {
   // Switches player
@@ -69,7 +89,7 @@ holdBtn.addEventListener("click", function () {
     //
     scoreTotal[currentPlayer] += currentValue;
     targetScore.textContent = scoreTotal[currentPlayer];
-    // 
+    //
     if (scoreTotal[currentPlayer] >= 20) {
       playing = false;
       document
@@ -78,7 +98,7 @@ holdBtn.addEventListener("click", function () {
       document
         .querySelector(`.player--${currentPlayer}`)
         .classList.remove("player--active");
-        dice.classList.add("hidden")
+      dice.classList.add("hidden");
     } else {
       switchPlayer();
     }
@@ -86,18 +106,4 @@ holdBtn.addEventListener("click", function () {
 });
 
 //: NEW GAME -------------------------------
-newBtn.addEventListener("click", function () {
-  playing = true;
-  currentValue = 0;
-  scoreTotal = [0, 0];
-  score0.textContent = 0;
-  score1.textContent = 0;
-  currentScore0.textContent = 0;
-  currentScore1.textContent = 0;
-
-  document
-    .querySelector(`.player--${currentPlayer}`)
-    .classList.remove("player--winner");
-  document.querySelector(`.player--0`).classList.add("player--active");
-  document.querySelector(`.player--1`).classList.remove("player--active");
-});
+newBtn.addEventListener("click", init);
