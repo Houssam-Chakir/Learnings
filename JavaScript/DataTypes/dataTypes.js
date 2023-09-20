@@ -1,4 +1,4 @@
-//* Values can either Objects or Primitive
+//: Values can either Objects or Primitive
 
 //- Objects like:
 let me = {
@@ -21,7 +21,7 @@ let myAge = 24;
  * ? -Bigint: a large number that cant be presented as numbers due to its size.
 */
 
-//* Dynamic typing: feature that allows JS to determine the type of a stored value automatically.
+//- Dynamic typing: feature that allows JS to determine the type of a stored value automatically.
 
 //----------------------------------------------------------------------------------------------
 
@@ -44,3 +44,30 @@ console.log(number('Houssam')); //output: NaN (Not a Number)
 
 console.log("I am " + 24 + " years old!"); // produces a whole string
 console.log('23' - 10 - '3'); //output: 10 as number
+
+//- PRIMITIVES VS OBJECTS [ PRIMITIVE VS REFERENCE TYPES ] //////////////////
+
+//: Primitives
+let lastName = "Chakir";
+let oldLastName = lastName;
+lastName = "Afassi";
+
+console.log(lastName, oldLastName);
+
+//: Objects
+const jessica = {
+    firstName: "Jessica",
+    lastName: "Williams",
+    age: 27
+};
+
+const marriedJesica = jessica;
+marriedJesica.lastName = "Davis",
+
+console.log("Before marriage: ",jessica);
+console.log("After marriage: ",marriedJesica);
+
+//check Coda notes
+//: How to copy objects without referencing the same one in the heap
+//? But only a shallow copy
+const jesica2 = Object.assign({}, jessica); //creates a new object with new object created in the heap
