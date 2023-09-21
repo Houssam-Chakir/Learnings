@@ -100,3 +100,16 @@ if(john.calcBMI() > mark.calcBMI()) {
 } else {
     console.log(`${mark.fullName}'s BMI (${mark.calcBMI()}) is higher than ${john.fullName}'s (${john.calcBMI()})!`);
 }
+
+//- [ DESTRUCTURING OBJECTS ] ////////////////////////////////////////////
+
+const guns = {
+    rifles: ["M4", ["AK-47", "AK-74"], "AUG"],
+    smgs: ["MP5", "MP7", "P90"],
+    machineGuns: ["SAW", "PKM"],
+}
+
+const {rifles: mediumRange = "empty", smgs: cqb = "empty", machineGuns: suppression = "empty"} = guns;
+//
+console.log("Rifles: ", mediumRange,"Smgs: ", cqb,"MachineGuns", suppression); 
+// output: Rifles:  [ 'M4', [ 'AK-47', 'AK-74' ], 'AUG' ] Smgs:  [ 'MP5', 'MP7', 'P90' ] MachineGuns [ 'SAW', 'PKM' ]
