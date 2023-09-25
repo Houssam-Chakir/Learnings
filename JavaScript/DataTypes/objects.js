@@ -128,9 +128,9 @@ guns.orderDelivery({
   rifelIndex: 0,
   address: "Casablanca",
   quantity: 3,
-}); //? OUTPUT: Order recieved! your 3 M4 is/are being processed for delivery. shipping address: Casablanca
+}); // OUTPUT: Order recieved! your 3 M4 is/are being processed for delivery. shipping address: Casablanca
 
-//? const {target: newName = "DefaultValue"} = object;
+// const {target: newName = "DefaultValue"} = object;
 const {
   rifles: mediumRange = "empty",
   smgs: cqb = "empty",
