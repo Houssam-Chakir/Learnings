@@ -109,13 +109,24 @@ if (john.calcBMI() > mark.calcBMI()) {
 }
 
 //- [ DESTRUCTURING OBJECTS ] ////////////////////////////////////////////
-
+// ES6 feature: Anhanced object literals
+const sniperRifles = ["M24", "Kar98"];
+// ES6 ---------
 const guns = {
   rifles: ["M4", ["AK-47", "AK-74"], "AUG"],
   smgs: ["MP5", "MP7", "P90"],
   machineGuns: ["SAW", "PKM"],
+  sniperRifles, // ES6
 
+  //before ES6
   orderDelivery: function ({ rifelIndex: i = 0, address = "unkown", quantity: q = 1 }) {
+    console.log(
+      `Order recieved! your ${q} ${this.rifles[i]} is/are being processed for delivery. `
+    );
+    console.log(`shipping address: ${address}`);
+  },
+  // ES6: no need for ": function"
+  orderDelivery2({ rifelIndex: i = 0, address = "unkown", quantity: q = 1 }) {
     console.log(
       `Order recieved! your ${q} ${this.rifles[i]} is/are being processed for delivery. `
     );
@@ -144,3 +155,17 @@ console.log("Rifles: ", mediumRange, "Smgs: ", cqb, "MachineGuns", suppression);
 //- Mutating variables -------
 ({ rifles: someGuns } = guns);
 console.log("someGuns", someGuns);
+
+//: [ OPTIONAL CHANNING (?.) ] /////////////////////////////////////////
+
+console.log(guns.swords?.daggers); // undifined
+//without optional channing -> it will give typeError
+//* cant be the last thing in the chain
+
+//on methods
+guns.orderDelivery?.({
+  rifelIndex: 0,
+  address: "Casablanca",
+  quantity: 3,
+}) ?? console.log("method does not exist");;
+//checks if method exists before calling it
