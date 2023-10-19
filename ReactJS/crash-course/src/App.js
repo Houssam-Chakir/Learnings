@@ -1,18 +1,10 @@
-const App = () => {
-  const MyName = () => {
-    return <h1>Houssam Chakir</h1>;
-  };
+import React from "react";
+import ReactDOM from "react-dom";
 
-  let isLoggedIn = true;
-  //return
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello World</h1>
-        <h2>{isLoggedIn ? <MyName /> : "Guest"}</h2>
-      </header>
-    </div>
-  );
+const App = () => {
+    return(
+        <h1>Hello world</h1>
+    );
 };
 
 export default App;
