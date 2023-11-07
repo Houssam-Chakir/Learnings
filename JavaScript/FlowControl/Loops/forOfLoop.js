@@ -10,3 +10,5 @@ for (const gun of smgs.entries()) {
 for (const [index, gun] of smgs.entries()) {
     console.log(`${index + 1}: ${gun}. [🛒 add to cart]`);
 }
+
+// looping over objects
