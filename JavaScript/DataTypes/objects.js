@@ -169,3 +169,12 @@ guns.orderDelivery?.({
   quantity: 3,
 }) ?? console.log("method does not exist");;
 //checks if method exists before calling it
+
+//- GETTING KEYS AND VALUES
+
+const object1 = {
+  aKey: "the value"
+};
+
+console.log(Object.values(object1)); // [ 'the value' ]
+console.log(Object.entries(object1)); // [ [ 'aKey', 'the value' ] ]
