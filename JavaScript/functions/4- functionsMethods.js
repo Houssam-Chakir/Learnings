@@ -47,3 +47,7 @@ console.log(eurowings.bookings)
 const bookEW1337 = book.bind(eurowings, 1337);
 bookEW1337('jhonas')
 console.log(eurowings.bookings)
+
+//with event listener
+
+document.querySelector(".aButton").addEventListener("click", book.bind(eurowings));
