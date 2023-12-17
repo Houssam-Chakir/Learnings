@@ -12,8 +12,8 @@ console.log(transformer("Hello World", oneWord)); // helloworld
 
 //- FUNCTIONS RETURNING FUNCTIONS
 
-const greeter = (greeting) => {
-  return (name) => {
+const greeter = function(greeting) {
+  return function(name) {
     console.log(`${greeting} ${name}`);
   };
 };
