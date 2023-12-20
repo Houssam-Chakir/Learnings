@@ -1,4 +1,3 @@
-//: ARRAYS ////////////////////////////////////
 bikeBrands = ["yamaha", "suzuki", "honda", "aprillia"];
 
 //* OTHER WAYS TO INIT AN ARRAY ///////////////
@@ -82,4 +81,3 @@ let [a, , [b, c]] = arr2; // a = 4, b = 6, c = 7
 
 const arr3 = [4, 5, [6, 7]];
 let [g = 1, , [h = 1, j = 1], k = 1] = arr2; // g = 4, h = 6, j = 7, k = 1
-
