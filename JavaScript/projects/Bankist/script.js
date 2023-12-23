@@ -61,6 +61,14 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+
+const withdrawl = movements.filter(function (mov) {
+  return mov < 0;
+});
+
 const displayMovements = function (movements) {
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
@@ -79,17 +87,16 @@ const displayMovements = function (movements) {
 displayMovements(account1.movements);
 
 const userNameGenerator = function (accounts) {
-  accounts.forEach(function(account) {
+  accounts.forEach(function (account) {
     account.username = account.owner
       .split(" ")
       .map((word) => word.at(0).toLowerCase())
       .join("");
-
-  })
+  });
 };
 
 console.log(userNameGenerator(accounts));
-console.log(accounts)
+console.log(accounts);
 
 // converstion
 
