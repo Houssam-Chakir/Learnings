@@ -61,6 +61,19 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+const currencies = new Map([
+  ["USD", "United States dollar"],
+  ["EUR", "Euro"],
+  ["GBP", "Pound sterling"],
+]);
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const euroToUsd = 1.1;
+
+const movementsUSD = movements.map((mov) => mov * euroToUsd);
+console.log(movementsUSD);
+
 const deposits = movements.filter(function (mov) {
   return mov > 0;
 });
@@ -84,13 +97,25 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML("afterbegin", element);
   });
 };
-displayMovements(account1.movements);
 
 const displayCalcBalance = function (movements) {
-  movements.reduce(function (total, mov) {
+  const balance = movements.reduce(function (total, mov) {
     return total + mov;
   }, 0);
-  labelBalance.textContent(`${movements} €`);
+  labelBalance.textContent = `${balance} €`;
+};
+
+const displayCalcSammury = function (movements) {
+  const income = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${income}`;
+
+  const outcome = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${outcome}`;
+  console.log(income, outcome);
 };
 
 const userNameGenerator = function (accounts) {
@@ -105,22 +130,34 @@ const userNameGenerator = function (accounts) {
 console.log(userNameGenerator(accounts));
 console.log(accounts);
 
+// Event handlers
+let currentaccount;
+
+btnLogin.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  currentaccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+
+  if (currentaccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back, ${currentaccount.owner}`;
+
+    containerApp.style.opacity = "100";
+
+    displayMovements(currentaccount.movements);
+    displayCalcBalance(currentaccount.movements);
+    displayCalcSammury(currentaccount.movements);
+
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur()
+  }
+});
+
 // converstion
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ["USD", "United States dollar"],
-  ["EUR", "Euro"],
-  ["GBP", "Pound sterling"],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-const euroToUsd = 1.1;
-
-const movementsUSD = movements.map((mov) => mov * euroToUsd);
-console.log(movementsUSD);
 /////////////////////////////////////////////////
