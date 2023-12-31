@@ -183,7 +183,7 @@ btnTransfer.addEventListener("click", function (e) {
 
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
-  console.log('outside')
+
   if (
     currentaccount.username === inputCloseUsername.value &&
     currentaccount.pin === Number(inputClosePin.value)
@@ -195,6 +195,16 @@ btnClose.addEventListener("click", function (e) {
     accounts.splice(index, 1);
     containerApp.style.opacity = "0";
   }
+});
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  const condition = currentaccount.movements.some((mov) => mov > amount * 0.1);
+
+  if (amount > 0 && condition)
+    currentaccount.movements.push(amount) && displayPageInfo();
 });
 // converstion
 
