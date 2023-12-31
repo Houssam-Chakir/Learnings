@@ -180,6 +180,22 @@ btnTransfer.addEventListener("click", function (e) {
     console.log("error");
   }
 });
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  console.log('outside')
+  if (
+    currentaccount.username === inputCloseUsername.value &&
+    currentaccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      (acc) => acc.username === currentaccount.username
+    );
+    console.log(index);
+    accounts.splice(index, 1);
+    containerApp.style.opacity = "0";
+  }
+});
 // converstion
 
 /////////////////////////////////////////////////
