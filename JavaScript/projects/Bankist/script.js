@@ -133,6 +133,12 @@ console.log(accounts);
 // Event handlers
 let currentaccount;
 
+const displayPageInfo = function () {
+  displayMovements(currentaccount.movements);
+  displayCalcBalance(currentaccount.movements);
+  displayCalcSammury(currentaccount.movements);
+};
+
 btnLogin.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -145,15 +151,35 @@ btnLogin.addEventListener("click", function (event) {
 
     containerApp.style.opacity = "100";
 
-    displayMovements(currentaccount.movements);
-    displayCalcBalance(currentaccount.movements);
-    displayCalcSammury(currentaccount.movements);
+    displayPageInfo();
 
     inputLoginUsername.value = inputLoginPin.value = "";
-    inputLoginPin.blur()
+    inputLoginPin.blur();
   }
 });
 
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const targetacc = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+
+  //check if target user exists
+  //amount more than 0
+
+  if (targetacc && amount > 0) {
+    //add negative movement to current account
+    currentaccount.movements.push(amount * -1);
+    //transfer amount
+    targetacc.movements.push(amount);
+
+    displayPageInfo();
+  } else {
+    console.log("error");
+  }
+});
 // converstion
 
 /////////////////////////////////////////////////
