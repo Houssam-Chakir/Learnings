@@ -82,8 +82,12 @@ const withdrawl = movements.filter(function (mov) {
   return mov < 0;
 });
 
-const displayMovements = function (movements) {
-  movements.forEach(function (mov, i) {
+const displayMovements = function (movements, sort = false) {
+  containerMovements.innerHTML = "";
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const element = `
@@ -205,6 +209,14 @@ btnLoan.addEventListener("click", function (e) {
 
   if (amount > 0 && condition)
     currentaccount.movements.push(amount) && displayPageInfo();
+});
+
+let toggle = true;
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  displayMovements(currentaccount.movements, toggle);
+  toggle = ! toggle ;
 });
 // converstion
 
