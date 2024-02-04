@@ -42,3 +42,28 @@ scrollToBtn.addEventListener("click", function (e) {
     block: "start",
   });
 });
+
+
+//random RGB color generator
+const randomRGB = () => {
+  let r = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+  return `rgb(${r},${g},${b})`;
+};
+
+//EVENT BUBBLING
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  e.preventDefault();
+  this.style.color = randomRGB();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  this.style.backgroundColor = randomRGB();
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  e.preventDefault();
+  this.style.backgroundColor = randomRGB();
+});
