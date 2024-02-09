@@ -107,3 +107,22 @@ tabContainer.addEventListener("click", function (e) {
 
 
 })
+
+//sticky nav bar
+const header = document.querySelector(".header");
+const nav = document.querySelector(".nav");
+
+const observer = new IntersectionObserver(function (entries) {
+  
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      nav.classList.remove("sticky");
+    } else {
+      nav.classList.add("sticky");
+    }
+  })
+}, {
+  threshold: 0,
+})
+
+observer.observe(header);
