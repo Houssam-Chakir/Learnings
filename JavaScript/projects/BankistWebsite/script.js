@@ -49,7 +49,7 @@ scrollToBtn.addEventListener("click", function (e) {
 //scroll to section
 document.querySelector(".nav__links").addEventListener("click", function (e) {
   e.preventDefault();
-  if(e.target.classList.contains("nav__link")) {
+  if (e.target.classList.contains("nav__link")) {
     const section = document.querySelector(e.target.getAttribute("href"));
     section.scrollIntoView({
       behavior: "smooth",
@@ -82,65 +82,128 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
 //   this.style.backgroundColor = randomRGB();
 // });
 
-
 //Tabs component functionality
 const operationsSection = document.querySelector(".operations");
 const contentTabs = document.querySelectorAll(".operations__content");
 const tabContainer = document.querySelector(".operations__tab-container");
 const opsTabs = document.querySelectorAll(".operations__tab");
 
-
 tabContainer.addEventListener("click", function (e) {
   const target = e.target.closest(".operations__tab");
-  const content = document.querySelector(`.operations__content--${target.dataset.tab}`)
-  if(!target) return;
+  const content = document.querySelector(
+    `.operations__content--${target.dataset.tab}`
+  );
+  if (!target) return;
 
-  opsTabs.forEach(el => {
+  opsTabs.forEach((el) => {
     el.classList.remove("operations__tab--active");
   });
-  contentTabs.forEach(el => {
+  contentTabs.forEach((el) => {
     el.classList.remove("operations__content--active");
-  })
+  });
 
   target.classList.add("operations__tab--active");
   content.classList.add("operations__content--active");
-
-
-})
+});
 
 //sticky nav bar
 const header = document.querySelector(".header");
 const nav = document.querySelector(".nav");
 
-const observer = new IntersectionObserver(function (entries) {
-
-  entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      nav.classList.remove("sticky");
-    } else {
-      nav.classList.add("sticky");
-    }
-  })
-}, {
-  threshold: 0,
-})
+const observer = new IntersectionObserver(
+  function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        nav.classList.remove("sticky");
+      } else {
+        nav.classList.add("sticky");
+      }
+    });
+  },
+  {
+    threshold: 0,
+  }
+);
 
 observer.observe(header);
 
 // section reveal
 const sections = document.querySelectorAll(".section");
 
-const sectionObserver = new IntersectionObserver(function (entries, observer) {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.classList.remove('section--hidden')
-      observer.unobserve(entry.target)
-    }
-  })
+const sectionObserver = new IntersectionObserver(
+  function (entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove("section--hidden");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0,
+    rootMargin: "-200px",
+  }
+);
 
-}, {
-  threshold: 0,
-  rootMargin: '-200px'
+sections.forEach((section) => sectionObserver.observe(section));
+
+//Lazy loading Images
+const images = document.querySelectorAll(".features__img");
+
+const imagesObserver = new IntersectionObserver(
+  (imgs, observer) => {
+    imgs.forEach((img) => {
+      if (img.isIntersecting) {
+        console.log("observed img");
+
+        img.target.src = img.target.dataset.src;
+        img.target.addEventListener("load", function () {
+          img.target.classList.remove("lazy-img");
+        });
+
+        observer.unobserve(img.target);
+      }
+    });
+  },
+  {
+    rootMargin: "200px",
+  }
+);
+
+images.forEach((image) => {
+  imagesObserver.observe(image);
+});
+
+// Slides component
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+const leftSliderBtn = document.querySelector(".slider__btn--left");
+const rightSliderBtn = document.querySelector(".slider__btn--right");
+
+let count = 0
+const maxSlide = slides.length
+console.log(-maxSlide)
+
+//slides handler to move slides
+const slidesHandler = (slides) => {
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${100*(i+count)}%)`;
+  })
+}
+slidesHandler(slides)
+
+//buttons event listeners
+leftSliderBtn.addEventListener('click', () => {
+  if (count === 0) return
+  else count++;
+
+  slidesHandler(slides);
+
 })
 
-sections.forEach(section => sectionObserver.observe(section))
+rightSliderBtn.addEventListener('click', () => {
+  if (count === - maxSlide + 1) count = 0
+  else count--;
+
+  slidesHandler(slides);
+})
