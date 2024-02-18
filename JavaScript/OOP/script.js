@@ -59,22 +59,58 @@ class CarCl {
 
 //Person class
 //SETTERS AND GETTERS
+/**
+ * Represents a person.
+ */
 class Person2 {
-  constructor(fN, bY) {
-      this.fullName = fN;
-      this.birthYear = bY;
+  /**
+   * Initializes a new instance of the Person2 class with the provided full name and birth year.
+   * @param {string} fullName - The full name of the person.
+   * @param {number} birthYear - The birth year of the person.
+   */
+  constructor(fullName, birthYear) {
+    this._fullName = fullName;
+    this.birthYear = birthYear;
   }
 
+  /**
+   * Sets the full name of the person.
+   * @param {string} name - The full name of the person.
+   */
   set fullName(name) {
-      if(name.includes(' ')) this._fullName = name;
-      else alert('not a full name')
+    if (name.includes(' ')) {
+      this._fullName = name;
+    } else {
+      alert('Not a full name');
+    }
   }
 
+  /**
+   * Retrieves the full name of the person.
+   * @returns {string} The full name of the person.
+   */
   get fullName() {
-      return this._fullName
+    return this._fullName;
   }
 }
 
 const houssam = new Person2('houssam chakir', 1999);
 console.dir(houssam)
 houssam.fullName = 'sara chakir'
+
+//OBJECT CREATE
+const Person3 = {
+  init(fN, bY) {
+      this.fullName = fN;
+      this.birthYear = bY;
+  },
+
+  calcAge() {
+      return 2024 - this.birthYear
+  },
+}
+
+const me3 = Object.create(Person3)
+console.log(me3)
+// me3.init('houssam', 1999)
+// console.log(me3, me3.calcAge())
