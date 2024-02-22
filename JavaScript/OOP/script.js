@@ -45,22 +45,21 @@ console.log(bmw);
 const EV = function (make, speed, charge) {
   Car.call(this, make, speed);
   this.charge = charge;
-}
+};
 EV.prototype = Object.create(Car.prototype);
 
-EV.prototype.chargeBattery = function(chargeTo) {
+EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
-}
+};
 EV.prototype.accelerate = function () {
   this.speed += 20;
   this.charge--;
 };
 
-
-const tesla = new EV('Tesla', 120, 23);
-tesla.chargeBattery(100)
-tesla.accelerate()
-console.log(tesla)
+const tesla = new EV("Tesla", 120, 23);
+tesla.chargeBattery(100);
+tesla.accelerate();
+console.log(tesla);
 
 //* using ES6 Classes
 class CarCl {
@@ -76,15 +75,63 @@ class CarCl {
     this.speed -= 5;
   }
 
-
   get speedUS() {
-    return this.speed / 1.6
+    return this.speed / 1.6;
   }
 }
 
-const ford = new CarCl('ford', 120)
-console.log(ford)
-console.log(ford.speedUS)
+const ford = new CarCl("ford", 120);
+console.log(ford);
+console.log(ford.speedUS);
+
+//EV Class
+
+console.log('EVCL -----')
+class EVCL extends CarCl {
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  // EV.prototype.chargeBattery = function (chargeTo) {
+  //   this.charge = chargeTo;
+  // };
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this
+  }
+  // EV.prototype.accelerate = function () {
+  //   this.speed += 20;
+  //   this.charge--;
+  // };
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+  }
+
+  brake() {
+    this.speed -= 15
+  }
+
+  charge() {
+    return this.#charge;
+  }
+}
+
+const rv = new EVCL('Rivian',120, 42);
+//testing class
+console.log(rv);
+console.log(rv.charge());
+rv.chargeBattery(100);
+rv.accelerate();
+console.log(rv);
+rv.brake();
+console.log(rv);
+
+
+console.log('EVCL -----')
 
 //Person class
 //SETTERS AND GETTERS
@@ -97,6 +144,7 @@ class Person2 {
    * @param {string} fullName - The full name of the person.
    * @param {number} birthYear - The birth year of the person.
    */
+  #currentYear = 2024;
   constructor(fullName, birthYear) {
     this._fullName = fullName;
     this.birthYear = birthYear;
@@ -107,16 +155,21 @@ class Person2 {
    * @param {string} name - The full name of the person.
    */
   set fullName(name) {
-    if (name.includes(' ')) {
+    if (name.includes(" ")) {
       this._fullName = name;
     } else {
-      alert('Not a full name');
+      alert("Not a full name");
     }
   }
 
-  calcAge() {
-    return 2024 - this.birthYear
-}
+  #calcAge() {
+    console.log(2024 - this.birthYear);
+  }
+  getAge() {
+    console.log('your age is')
+    this.#calcAge()
+    return this
+  }
 
   /**
    * Retrieves the full name of the person.
@@ -127,24 +180,24 @@ class Person2 {
   }
 }
 
-const houssam = new Person2('houssam chakir', 1999);
-console.dir(houssam)
-houssam.fullName = 'sara chakir'
+const houssam = new Person2("houssam chakir", 1999);
+console.dir(houssam);
+console.log(houssam);
 
 //OBJECT CREATE
 const Person3 = {
   init(fN, bY) {
-      this.fullName = fN;
-      this.birthYear = bY;
+    this.fullName = fN;
+    this.birthYear = bY;
   },
 
   calcAge() {
-      return 2024 - this.birthYear
+    return 2024 - this.birthYear;
   },
-}
+};
 
-const me3 = Object.create(Person3)
-console.log(me3)
+const me3 = Object.create(Person3);
+console.log(me3);
 // me3.init('houssam', 1999)
 // console.log(me3, me3.calcAge())
 
@@ -156,10 +209,10 @@ class Student extends Person2 {
   }
 
   introduce() {
-    console.log('Hello there')
+    console.log("Hello there");
   }
 }
 
-const ssam = new Student('ssam', 1999, 'web developement')
-console.log(ssam)
-console.log(ssam.calcAge())
+const ssam = new Student("ssam", 1999, "web developement");
+console.log(ssam);
+console.log(ssam.getAge());
