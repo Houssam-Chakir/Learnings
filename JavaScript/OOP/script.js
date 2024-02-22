@@ -41,6 +41,26 @@ bmw.accelerate(); // 130
 console.log(bmw);
 bmw.brake(); // 125
 console.log(bmw);
+//* EV
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+}
+EV.prototype = Object.create(Car.prototype);
+
+EV.prototype.chargeBattery = function(chargeTo) {
+  this.charge = chargeTo;
+}
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+};
+
+
+const tesla = new EV('Tesla', 120, 23);
+tesla.chargeBattery(100)
+tesla.accelerate()
+console.log(tesla)
 
 //* using ES6 Classes
 class CarCl {
@@ -55,7 +75,16 @@ class CarCl {
   brake() {
     this.speed -= 5;
   }
+
+
+  get speedUS() {
+    return this.speed / 1.6
+  }
 }
+
+const ford = new CarCl('ford', 120)
+console.log(ford)
+console.log(ford.speedUS)
 
 //Person class
 //SETTERS AND GETTERS
@@ -84,6 +113,10 @@ class Person2 {
       alert('Not a full name');
     }
   }
+
+  calcAge() {
+    return 2024 - this.birthYear
+}
 
   /**
    * Retrieves the full name of the person.
@@ -114,3 +147,19 @@ const me3 = Object.create(Person3)
 console.log(me3)
 // me3.init('houssam', 1999)
 // console.log(me3, me3.calcAge())
+
+//Student Class with inhertince
+class Student extends Person2 {
+  constructor(fullName, birthYear, course) {
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log('Hello there')
+  }
+}
+
+const ssam = new Student('ssam', 1999, 'web developement')
+console.log(ssam)
+console.log(ssam.calcAge())
