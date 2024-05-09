@@ -8,7 +8,7 @@ export default function createImage(path) {
       reject("error loading the image");
     };
     img.onload = () => {
-      imgs.append(img);
+      imgs.append(img)
       resolve(img);
     };
   });

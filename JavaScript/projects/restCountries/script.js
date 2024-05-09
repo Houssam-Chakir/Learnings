@@ -6,6 +6,8 @@ import { whereAmI } from "./geocodeAPI.js";
 import createImage from "./imgLoader.js";
 import fetchCountryAsync from "./asyncFetch.js";
 
+const imgsCointainer = document.querySelector(".images");
+
 const btn = document.querySelector(".btn-country");
 const btn2 = document.querySelector(".btn2");
 const btn3 = document.querySelector(".btn3");
@@ -21,7 +23,7 @@ btn.addEventListener("click", function () {
 
 btn3.addEventListener("click", function () {
   fetchCountryAsync("morocco");
-  console.log('async fetch')
+  console.log("async fetch");
 });
 
 // This button is going to get the user's location using the Geolocation API
@@ -33,15 +35,25 @@ btn3.addEventListener("click", function () {
 btn2.addEventListener("click", function () {
   // Function that retrieves the user's location and returns a promise that resolves
   // to the country name.
-  whereAmI()
-    // On success, log the country name to the console and then pass the country name
-    // to the `fetchCountry` function to display the country information on the page.
-    .then((data) => {
-      console.log("data", data);
-      return fetchCountry(data);
-    })
-    // On error, log the error message to the console.
-    .catch((error) => console.log(error.message));
+  // whereAmI()
+  //   // On success, log the country name to the console and then pass the country name
+  //   // to the `fetchCountry` function to display the country information on the page.
+  //   .then((data) => {
+  //     console.log("data", data);
+  //     return fetchCountry(data);
+  //   })
+  //   // On error, log the error message to the console.
+  //   .catch((error) => console.log(error.message));
+  //
+  (async function () {
+    try {
+      console.log("getting location");
+      fetchCountry(await whereAmI());
+      console.log("results received");
+    } catch (error) {
+      console.log(error.message);
+    }
+  })();
 });
 
 navigator.geolocation.getCurrentPosition((position) => console.log(position));
@@ -58,19 +70,52 @@ const wait = (time) => {
 };
 
 let currentImage;
+let asyncImage;
 
-createImage("./img/img-1.jpg")
-  .then((img) => {
-    console.log(img.src);
-    return img;
-  })
-  .then((img) => {
-    currentImage = img;
-    return wait(2);
-  })
-  .then(() => {
-    currentImage.style.display = "none";
-    return wait(2)
-  })
-  .then(() => createImage("./img/img-2.jpg"))
-  .catch((error) => console.error(error));
+// createImage("./img/img-1.jpg")
+//   .then((img) => {
+//     console.log(img.src);
+//     return img;
+//   })
+//   .then((img) => {
+//     currentImage = img;
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImage.style.display = "none";
+//     return wait(2)
+//   })
+//   .then(() => createImage("./img/img-2.jpg"))
+//   .catch((error) => console.error(error));
+
+// using async/await
+
+const loadNpause = async function () {
+  try {
+    //load image 1
+    asyncImage = await createImage("./img/img-1.jpg");
+    imgsCointainer.append(asyncImage);
+    await wait(2);
+
+    asyncImage.style.display = "none";
+    await wait(2);
+
+    //load image 2
+    asyncImage = await createImage("./img/img-2.jpg");
+    imgsCointainer.append(asyncImage);
+  } catch (error) {
+    console.error(error, "‼️");
+  }
+};
+// loadNpause()
+
+const loadAll = async function (paths) {
+  const imgs = await paths.map(async (path) => await createImage(path));
+  console.dir('imgs: ', imgs);
+
+  const imgsEl = await Promise.all(imgs)
+  console.log('imgsEl: ', imgsEl);
+  imgsEl.forEach(img => img.classList.add('parallel'))
+};
+
+loadAll(["./img/img-1.jpg", "./img/img-2.jpg", "./img/img-3.jpg"])

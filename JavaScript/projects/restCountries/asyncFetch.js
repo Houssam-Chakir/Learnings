@@ -1,6 +1,4 @@
-
 const countriesContainer = document.querySelector(".countries");
-
 
 //* HELPER FUNCTIONS //////////////////////////////////////////////////////////
 
@@ -9,19 +7,25 @@ const getPosition = async function () {
     return navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 
-  const {latitude, longitude} = position.coords
+  const { latitude, longitude } = position.coords;
   return { latitude, longitude };
 };
 
 const getCountry = async function (position) {
   // gets country based o coords
-  const result = await fetch(`https://geocode.xyz/${position.latitude},${position.longitude}?geoit=json&auth=735945790511231885936x43790`)
-  if(!result) throw new Error(`Something went wrong`);
+  const result = await fetch(
+    `https://geocode.xyz/${position.latitude},${position.longitude}?geoit=json&auth=735945790511231885936x43790`
+  );
+  if (!result) throw new Error(`Something went wrong`);
+  if (!result.ok) throw new Error(`Bad Request! failed to fetch country`);
   // turns result to json
-  const data = await result.json()
+  const data = await result.json();
   // gets country info using country name
-  const country = await fetch(`https://restcountries.com/v3.1/name/${data.country}`)
-  return country.json()
+  const country = await fetch(
+    `https://restcountries.com/v3.1/name/${data.country}`
+  );
+  if (!country.ok) throw new Error(`Bad Request! Failed to get country info`);
+  return country.json();
 };
 
 const renderCountry = function (data, className = "") {
@@ -46,7 +50,11 @@ const renderCountry = function (data, className = "") {
 //* MAIN FUNCTION /////////////////////////////////////////////////////////////
 
 export default async function fetchCountryAsync(country) {
-  const position = await getPosition()
-  const result = await getCountry(position)
-  renderCountry(result[0])
-};
+  try {
+    const position = await getPosition();
+    const result = await getCountry(position);
+    renderCountry(result[0]);
+  } catch (error) {
+    alert(error);
+  }
+}
