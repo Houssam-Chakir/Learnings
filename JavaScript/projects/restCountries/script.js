@@ -1,10 +1,18 @@
 "use strict";
 
+if(module.hot) module.hot.accept
+
 import xmlHandler from "./xml.js";
 import { fetchCountry } from "./promises.js";
 import { whereAmI } from "./geocodeAPI.js";
 import createImage from "./imgLoader.js";
 import fetchCountryAsync from "./asyncFetch.js";
+
+import cloneDeep from "./node_modules/lodash-es/cloneDeep.js";
+//polyfilling ES6 features
+import 'core-js/stable'
+//polyfilling async functions
+import 'regenerator-runtime/runtime'
 
 const imgsCointainer = document.querySelector(".images");
 
@@ -111,11 +119,25 @@ const loadNpause = async function () {
 
 const loadAll = async function (paths) {
   const imgs = await paths.map(async (path) => await createImage(path));
-  console.dir('imgs: ', imgs);
+  console.dir("imgs: ", imgs);
 
-  const imgsEl = await Promise.all(imgs)
-  console.log('imgsEl: ', imgsEl);
-  imgsEl.forEach(img => img.classList.add('parallel'))
+  const imgsEl = await Promise.all(imgs);
+  console.log("imgsEl: ", imgsEl);
+  imgsEl.forEach((img) => img.classList.add("parallel"));
 };
 
-loadAll(["./img/img-1.jpg", "./img/img-2.jpg", "./img/img-3.jpg"])
+// loadAll(["./img/img-1.jpg", "./img/img-2.jpg", "./img/img-3.jpg"])
+
+const state = {
+  cart: [
+    { prod: "pizza", price: 5 },
+    { prod: "bread", price: 3 },
+  ],
+  user: {
+    loggedIn: true,
+    pro: false,
+  },
+};
+console.log("state: ", state);
+const copy = cloneDeep(state)
+console.log('copy: ', copy);
