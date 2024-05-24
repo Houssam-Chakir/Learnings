@@ -1,3 +1,5 @@
+import { API_URL, API_KEY } from "./config";
+
 export const state = {
   recipe: {},
 
@@ -7,7 +9,7 @@ export const loadRecipe = async function(id) {
   try {
     //f/ FETCHING RECIPE
     const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}?key=4f11fab4-0e38-4b01-90fa-7a7952464411`
+      `${API_URL}/${id}?key=${API_KEY}`
     );
     const data = await res.json();
     //f/ error handling invalid id
