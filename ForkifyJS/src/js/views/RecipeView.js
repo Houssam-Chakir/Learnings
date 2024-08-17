@@ -1,34 +1,22 @@
+import { clear } from "../helpers";
 import icons from "url:../../img/icons.svg";
 import fracty from "fracty";
 
-class RecipeView {
-  #parentEl = document.querySelector(".recipe");
+import View from "./view";
 
-  //f/ MAIN RECIPE RENDERER FUNCTION //
+class RecipeView extends View {
+  _parentEl = document.querySelector(".recipe");
+
+  // MAIN RECIPE RENDERER FUNCTION //
   render(recipe) {
-    const markup = this.#generateMarkup(recipe);
-    this.#clear();
-    this.#insertHTML(markup);
-  }
-
-  //f/ RENDERS LOADING SPINNER //
-  renderSpinner() {
-    //spinner HTML
-    const markup = `
-      <div class="spinner">
-        <svg>
-          <use href="${icons}#icon-loader"></use>
-        </svg>
-      </div>
-    `;
-    //Removing Content
-    this.#parentEl.innerHTML = "";
-    this.#parentEl.insertAdjacentHTML("beforeend", markup);
+    const markup = this._generateRecipeMarkup(recipe);
+    clear(this._parentEl);
+    this._insertHTML(markup, this._parentEl);
   }
 
   //- Private //
-  //f/ GENERATES RECIPE MARKUP
-  #generateMarkup(recipe) {
+  // GENERATES RECIPE MARKUP
+  _generateRecipeMarkup(recipe) {
     return `
       <figure class="recipe__fig">
         <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
@@ -85,7 +73,7 @@ class RecipeView {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-          ${recipe.ingredients.map((ing) => this.#generateIngredients(ing))}
+          ${recipe.ingredients.map((ing) => this._generateIngredients(ing))}
         </ul>
       </div>
 
@@ -112,8 +100,8 @@ class RecipeView {
     `;
   }
 
-  //f/ GENERATE MARKUP INGREDIENTS
-  #generateIngredients(ing) {
+  // GENERATE MARKUP INGREDIENTS
+  _generateIngredients(ing) {
     return `
         <li class="recipe__ingredient">
           <svg class="recipe__icon">
@@ -130,12 +118,10 @@ class RecipeView {
       `;
   }
 
-  //f/ CLEARS PARENT ELEMENT CONTENT & HTML //
-  #clear() {
-    this.#parentEl.innerHTML = "";
-  }
-  #insertHTML(markup) {
-    this.#parentEl.insertAdjacentHTML("beforeend", markup);
+  // EVENT HANDLERS
+  //? Rendering recipe at start
+  addHandlerRender(handler) {
+    ["hashchange", "load"].forEach((ev) => addEventListener(ev, handler));
   }
 }
 
